@@ -72,4 +72,7 @@ select distinct order_id from superstore where datediff(ship_date,order_date)=0;
 select year(order_date) as yr, count(order_id) as no_of_orders from superstore group by yr;
 
 #count orders by month
+select month(order_date) as Mnth, count(*) from superstore group by 1 order by 1;
+
 #format the order_date in this fromat: 26-10-mon;
+select date_format(order_date, '%y-%m-%a') from superstore;
