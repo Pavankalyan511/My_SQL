@@ -56,6 +56,15 @@ select e.emp_name, d.dept_name from emps e right join depts d on e.dept_id=d.dep
 select d.dept_name,max(e.salary) from emps e join depts d on e.dept_id=d.dept_id group by 1;
 
 #Display the depts with highest avg_salary
+select dept_name, avg(salary) as avg_salary from emps e join depts d on e.dept_id=d.dept_id
+group by d.dept_name order by avg_salary desc limit 1;
+ 
 #Display the depts of the emps whose salary is above 30k
+select d.dept_name, e.emp_name,e.salary from emps e join depts d on e.dept_id=d.dept_id where e.salary > 30000;
+
 #Display the emps without a dept
+select e.emp_name, d.dept_name from emps e left join depts d  on e.dept_id=d.dept_id where d.dept_name is null;
+select e.emp_name, d.dept_name from depts d right join emps e on e.dept_id=d.dept_id where d.dept_name is null;
+
 #Find no.of emps working in each dept
+select d.dept_name, count(e.emp_id) as no_of_emps from emps e join depts d on e.dept_id=d.dept_id group by 1;
