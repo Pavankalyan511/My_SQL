@@ -44,3 +44,25 @@ join products p on p.prod_id =od.prod_id group by 1;
 ##self join
 select e.emp_name as employee, m.emp_name as manager from emps e join emps m on e.manager_id=m.emp_id;
 #on condition --> finds the employee whose emp_id matches with this manager_id
+
+#find the products purchased by kavya
+select p.prod_name from products p join order_details od on p.prod_id=od.prod_id 
+join orders o on od.order_id=o.order_id join customers c on o.c_id=c.c_id where c.c_name='Kavya';
+
+#find the customer who placed highest no.of orders
+select c.c_name, count(o.order_id) as total_orders from customers c 
+join orders o on c.c_id=o.c_id group by c.c_id, c.c_name order by total_orders desc limit 1;
+
+#find customer who spent highest amount
+select c.c_name, sum(p.price*od.quantity) as total_spent from customers c
+join orders o on c.c_id=o.c_id join order_details od on o.order_id=od.order_id 
+join products p on od.prod_id=p.prod_id group by c.c_id, c.c_name order by total_spent desc limit 1;
+
+#find customer who never placed any order
+select c.c_name from customers c left join orders o on c.c_id=o.c_id where o.order_id is null;
+
+#find the products which never purchesed
+select p.prod_name from products p left join order_details od on p.prod_id=od.prod_id where od.prod_id is null;
+
+#find youngest customer who placed an order
+select c.c_name, c.age from customers c join orders o on c.c_id =o.c_id order by c.age asc limit 1;
